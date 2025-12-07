@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Information Technology (GIT) A/L Past Paper - Interactive Test</title>
+    <style>
+        /* Base Styling & Theme: Teal and Orange */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f4f8, #e0f7fa);
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 25px auto;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+        }
+
+        /* Header and Info */
+        h1 {
+            color: #00897b; /* Dark Teal */
+            text-align: center;
+            border-bottom: 4px solid #ffb300; /* Amber/Orange */
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+        .info-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #e0f2f1; /* Light Teal background */
+            border-radius: 8px;
+            border-left: 5px solid #00acc1;
+        }
+        .info-bar input, .info-bar button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        /* Section Headings - Unified Teal Theme */
+        #paper1-heading, #paper2-heading {
+            color: white;
+            background-color: #00897b; /* Dark Teal */
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reduced font size for all questions */
+        .question h3, .theory-question h2 {
+            color: #2c3e50;
+            font-size: 1em; /* Reduced from 1.1em or similar to 1em for subtle change */
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        /* Paper I (MCQ) Styling - All questions have a light green background */
+        .question {
+            margin-bottom: 18px;
+            padding: 15px;
+            border: 1px solid #b2dfdb; 
+            border-left: 4px solid #009688;
+            border-radius: 8px;
+            background-color: #f0fff0; /* Light Mint Green for all MCQs */
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        /* Highlight Q1's background slightly (Darker shade of mint green) */
+        #q1 {
+            background-color: #e6ffe6 !important; 
+        }
+        .question:hover, .theory-question:hover {
+            box-shadow: 0 0 15px rgba(0, 150, 136, 0.5); /* Teal Glow Effect */
+            transform: translateY(-2px);
+        }
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background-color 0.1s;
+        }
+        
+        /* Paper II (Theory) Styling - Unified Teal Theme */
+        .theory-question {
+            margin-bottom: 35px;
+            padding: 20px;
+            border: 1px solid #b2dfdb; 
+            border-left: 6px solid #00acc1; 
+            border-radius: 8px;
+            background-color: #f8fcfc; 
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .theory-question h3 {
+            color: #00897b;
+            font-size: 0.95em;
+        }
+        
+        /* Larger Textarea */
+        textarea {
+            width: 100%;
+            min-height: 150px; /* Increased height */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1.0em;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        /* T1 Example Styling */
+        #T1 {
+            background-color: #e0f7fa; /* Lightest Teal for example */
+            border-left: 6px solid #00bcd4; /* Brighter Teal marker */
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+        }
+        #T1_1 textarea {
+            background-color: #f1fcfc;
+            border: 1px dashed #00bcd4;
+            font-weight: bold;
+            color: #00897b;
+        }
+
+        /* Feedback styling (Hidden initially by default) */
+        .answer-feedback, .correct-answer-key {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: none; /* KEY CHANGE: Hides answers on load */
+        }
+        .answer-feedback {
+            color: #00897b; /* Teal for submission feedback */
+            font-size: 1.1em;
+        }
+        .correct-answer-key {
+            color: #ff5722; /* Orange for answer key */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="main-title">General Information Technology (GIT) A/L Past Paper - Interactive Test</h1>
+
+    <div class="info-bar">
+        <div id="date-time-display"></div>
+        <div>
+            <label for="student-name" id="name-label">Student's Name / Index Number:</label>
+            <input type="text" id="student-name" name="student-name" placeholder="Enter your name/index here">
+        </div>
+        <button id="language-toggle" onclick="toggleLanguage()">සිංහල / English</button>
+    </div>
+
+    <form id="git-exam-form">
+
+        <h2 id="paper1-heading">General Information Technology I (MCQs)</h2>
+        <p id="paper1-instructions" style="font-style: italic; text-align: center;">Instructions: Answer all questions. Select the correct or most appropriate alternative.</p>
+        <div id="mcq-container">
+            </div>
+        
+        <div id="results"></div>
+
+        <button type="button" id="review-key-btn" style="display: none;" onclick="toggleAnswerKey()">Review Answer Key</button>
+
+        <h2 id="paper2-heading">General Information Technology II (Theory)</h2>
+        <p id="paper2-instructions" style="font-style: italic; text-align: center;">Instructions: Answer four questions only. Use the space provided to type your detailed answers. Note: Theory answers are subjective and should be reviewed by a teacher. **The first sub-question of Question 1 is done for you as an example.**</p>
+        <div id="theory-container">
+            </div>
+
+        <div class="control-buttons">
+            <button type="button" id="submit-btn" onclick="submitAndDownload()">Submit & Download Answers</button>
+            <button type="button" id="reset-btn" onclick="resetForm()">Reset All Answers</button>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    const LANG = { EN: 'en', SI: 'si' };
+    let currentLang = LANG.EN;
+
+    // --- Static Data (MCQ Answers and Theory Content) ---
+    const correctAnswers = {
+        q1: 'b', q2: 'c', q3: 'c', q4: 'c', q5: 'a', q6: 'c', q7: 'c', q8: 'b', q9: 'c', q10: 'd', 
+        q11: 'b', q12: 'c', q13: 'c', q14: 'c', q15: 'a', q16: 'b', q17: 'c', q18: 'b', q19: 'b', q20: 'a',
+        q21: 'b', q22: 'a', q23: 'd', q24: 'c', q25: 'a', q26: 'c', q27: 'b', q28: 'c', q29: 'b', q30: 'a', 
+        q31: 'b', q32: 'a', q33: 'c', q34: 'b', q35: 'b', q36: 'c', q37: 'c', q38: 'b', q39: 'd', q40: 'b' 
+    };
+    
+    // T1 Example Answer Data - Simplified as requested. Only T1_1 has content.
+    const t1Example = {
+        [LANG.EN]: [
+            'Use the Operating System (OS) command (e.g., in File Explorer) to Create Folder/Directory with the name GIT on the C drive.',
+            '', // T1(ii) blank
+            '', // T1(iii) blank
+            '', // T1(iv) blank
+            '', // T1(b) blank
+        ],
+        [LANG.SI]: [
+            'මෙහෙයුම් පද්ධති විධානයක් (උදා: ගොනු එක්ස්ප්ලෝරර් හි) භාවිතයෙන් C ධාවකයේ GIT නමින් ෆෝල්ඩරයක්/නාමාවලියක් නිර්මාණය කිරීම.',
+            '', // T1(ii) blank
+            '', // T1(iii) blank
+            '', // T1(iv) blank
+            '', // T1(b) blank
+        ]
+    };
+
+    const content = {
+        [LANG.EN]: {
+            title: 'General Information Technology (GIT) A/L Past Paper - Interactive Test',
+            nameLabel: "Student's Name / Index Number:",
+            paper1Heading: 'General Information Technology I (MCQs)',
+            paper1Instructions: 'Instructions: Answer all questions. Select the correct or most appropriate alternative.',
+            paper2Heading: 'General Information Technology II (Theory)',
+            paper2Instructions: 'Instructions: Answer four questions only. Use the space provided to type your detailed answers. Note: Theory answers are subjective and should be reviewed by a teacher. **The first sub-question of Question 1 is done for you as an example.**',
+            submitBtn: 'Submit & Download Answers',
+            resetBtn: 'Reset All Answers',
+            reviewBtn: 'Review Answer Key',
+            mcqResults: 'Your MCQ score will appear here after submission.',
+            mcqCorrect: '✅ Correct!',
+            mcqIncorrect: '❌ Incorrect. The correct answer is:',
+            mcqUnanswered: '⚠️ Unanswered. The correct answer is:',
+            questions: [
+                {id: 'q1', text: '1. Which of the following devices is an output device only of a computer?', options: ['(1) Keyboard', '(2) Printer', '(3) Mouse', '(4) Touchpad']},
+                {id: 'q2', text: '2. Which of the following devices is used by the computer as a non volatile storage device?', options: ['(1) CRT', '(2) CPU registers', '(3) Hard disks', '(4) RAM']},
+                {id: 'q3', text: '3. Which of the following is a software?', options: ['(1) RAM', '(2) Mouse', '(3) Operating System', '(4) Network Administrator']},
+                {id: 'q4', text: '4. What is the main function of the CPU of a computer?', options: ['(1) Store data', '(2) Display graphics', '(3) Process instructions', '(4) Connect to the internet']},
+                {id: 'q5', text: '5. What does the acronym HTML stands for?', options: ['(1) Hyper Text Markup Language', '(2) Home Tool Markup Language', '(3) Hyperlinks and Text Markup Language', '(4) Hyper Tool Markup Language']},
+                {id: 'q6', text: '6. Which of the following computer devices/components is used by a computer, to connect it to any computer network?', options: ['(1) Printer', '(2) Scanner', '(3) Network Interface Card (NIC)', '(4) Keyboard']},
+                {id: 'q7', text: '7. Which of the following is a programming language?', options: ['(1) Excel', '(2) HTML', '(3) Pascal', '(4) XML']},
+                {id: 'q8', text: '8. What is the primary function of an operating system?', options: ['(1) To compile programs', '(2) To manage computer hardware and software', '(3) To run web browsers', '(4) To manage networks']},
+                {id: 'q9', text: '9. Which of the following is an operating system?', options: ['(1) Excel', '(2) MS Word', '(3) Linux', '(4) Google Chrome']},
+                {id: 'q10', text: '10. Which of the following is a web browser?', options: ['(1) Excel', '(2) Python', '(3) Linux', '(4) Google Chrome']},
+                {id: 'q11', text: '11. Which of the following file extensions is used to store audio files?', options: ['(1) txt', '(2) mp3', '(3) docx', '(4) pdf']},
+                {id: 'q12', text: '12. Which of the following languages is fundamental for web page construction?', options: ['(1) C++', '(2) Java', '(3) HTML', '(4) Python']},
+                {id: 'q13', text: '13. Which of the following software is used by a user to access websites?', options: ['(1) Word Processor', '(2) Spreadsheet', '(3) Web Browser', '(4) DBMS']},
+                {id: 'q14', text: '14. What is the main purpose of data encryption?', options: ['(1) To compress data', '(2) To speed up data transfer', '(3) To protect data', '(4) To backup data']},
+                {id: 'q15', text: '15. What is the primary purpose of an IP address?', options: ['(1) To identify a device on a computer network', '(2) To connect to the Internet', '(3) To send an email', '(4) To run the applications']},
+                {id: 'q16', text: '16. What are the acceptable symbols that can be used to start a formula in spreadsheets?', options: ['(1) # or @', '(2) = or +', '(3) $ or &', '(4) % or *']},
+                {id: 'q17', text: '17. Which function in a Spreadsheet would find the highest value in a range of cells?', options: ['(1) SUM()', '(2) AVERAGE()', '(3) MAX()', '(4) MIN()']},
+                {id: 'q18', text: '18. What is the best chart type in a Spreadsheet that can be used to show trends over time?', options: ['(1) Pie chart', '(2) Line chart', '(3) Bar chart', '(4) Scatter plot chart']},
+                {id: 'q19', text: '19. Which of the following is a valid cell range reference in a Spreadsheet?', options: ['(1) A1-A10', '(2) A1:A10', '(3) Al;A10', '(4) A1 A10']},
+                {id: 'q20', text: "20. What does the term 'bandwidth' refer to with reference to networks?", options: ['(1) The amount of data that can be transmitted over a network in a time unit..', '(2) The physical size of a network cable', '(3) The frequency of a wireless signal.', '(4) The number of devices connected to a network']},
+                {id: 'q21', text: '21. What is the main function of a firewall?', options: ['(1) To manage web servers', '(2) To monitor incoming and outgoing traffic of a network', '(3) To compress data', '(4) To enhance email security']},
+                {id: 'q22', text: '22. What is a primary key of a table in a database?', options: ['(1) A unique identifier for a record', '(2) A unique label to identify a field of a record', '(3) A key used to encrypt data', '(4) A command to retrieve data']},
+                {id: 'q23', text: "23. What is the domain name in the URL 'http://www.example.com/path'?", options: ['(1) http', '(2) www', '(3) example', '(4) www.example.com']},
+                {id: 'q24', text: "24. What does the term 'rendering' mean in the context of video editing?", options: ['(1) Adding subtitles to a video', '(2) Adjusting the volume of a video', '(3) The process of exporting a video project into a final format', '(4) Cutting a video clip into smaller segments']},
+                {id: 'q25', text: '25. Which of the following options indicate the correct classification of data and information described in the statements?', options: ['(1) A and D are data; B and C are information.', '(2) A and B are data; C and D are information.', '(3) B and C are data; A and D are information.', '(4) C and D are data; A and B are information.']},
+                {id: 'q26', text: "26. What does the term 'cut' refers to in video editing?", options: ['(1) Increasing the volume of an audio track', '(2) Adding a filter to a video clip', '(3) Splitting a video clip into two parts', '(4) Adjusting the brightness of a video']},
+                {id: 'q27', text: "27. In Microsoft PowerPoint, what is a 'slide master'?", options: ['(1) A feature used to create animations', '(2) A tool used to set up the overall design and layout for slides', '(3) A library of Clipart', '(4) A feature used to manage transitions']},
+                {id: 'q28', text: "28. What is 'Speaker Notes' in a Presentation software?", options: ['(1) Notes that are visible to the audience', '(2) A tool for creating slide titles', '(3) Notes visible only to the presenter during the presentation', '(4) A feature for adding audio clips']},
+                {id: 'q29', text: "29. What is the purpose of the 'Slide Show' in Presentation software?", options: ['(1) To edit slide content', '(2) To view and present slides as it will appear during the actual presentation', '(3) To print slides', '(4) To apply design themes']},
+                {id: 'q30', text: "30. X, Y and Z are three Boolean variables in the expression X.Y + (NOT) Z. Which of the above value assignments would give the value 0 for the expression?", options: ['(1) A only (X=0, Y=0, Z=1)', '(2) B only (X=1, Y=1, Z=1)', '(3) C only (X=0, Y=1, Z=0)', '(4) D only (X=1, Y=0, Z=0)']},
+                {id: 'q31', text: "31. The total waiting time (in seconds) of a particular vehicle is represented by the binary number 1011. What is the total time that this vehicle spent at the four traffic lights?", options: ['(1) 7 seconds', '(2) 11 seconds', '(3) 13 seconds', '(4) 15 seconds']},
+                {id: 'q32', text: "32. Which of the following statements is correct about the ASCII and Unicode encoding systems?", options: ['(1) ASCII is a subset of Unicode.', '(2) Unicode and ASCII are completely different encoding systems.', '(3) ASCII supports more characters than Unicode, making it more versatile for modern applications.', '(4) Unicode uses the same number of bits as ASCII to represent a character.']},
+                {id: 'q33', text: '33. Which of the following is a hexadecimal number only?', options: ['(1) 1010', '(2) 256', '(3) 1A3F', '(4) 10012']},
+                {id: 'q34', text: '34. What is the largest decimal value that can be represented by a single byte?', options: ['(1) 128', '(2) 255', '(3) 256', '(4) 512']},
+                {id: 'q35', text: "35. When the formula =6/2-2*4/2 is entered into a cell in a spreadsheet which of the following value is displayed in that cell?", options: ['(1) 1', '(2) -1', '(3) 2', '(4) -2']},
+                {id: 'q36', text: '36. A teacher wanted to create a question paper that no one could modify without using special software. Which of the following file formats should be used to store the question paper?', options: ['(1) DOC', '(2) HTML', '(3) PDF', '(4) ODT']},
+                {id: 'q37', text: '37. Consider the following statements about HTML documents. Which of the above statements are true?', options: ['(1) A and B only', '(2) A and D only', '(3) B and C only', '(4) C and D only']},
+                {id: 'q38', text: '38. The English alphabet character "E" is represented by the decimal number 69 in ASCII. Which of the following binary value represents the English character "A" in the ASCII code?', options: ['(1) 1000000', '(2) 1000001', '(3) 1000011', '(4) 1000111']},
+                {id: 'q39', text: '39. Which of the above features should be considered when buying a typical desktop computer?', options: ['(1) A and B only', '(2) B and C only', '(3) C and D only', '(4) A, B and C only']},
+                {id: 'q40', text: '40. What is the primary purpose of using the Bcc (Blind carbon copy) field in an email?', options: ['(1) To send a copy of the email to yourself', '(2) To send a copy of the email without revealing the recipients\' address to others', '(3) To send a copy of the email with high priority', '(4) To save a draft of the email']}
+            ],
+            theory: [
+                {id: 'T1', text: '1. Write down the essential computer operations required to perform the following tasks.', sub: ['(i) Creating a folder with the name GIT on the C drive.', '(ii) Creating 3 sub-folders inside GIT with names examples, docs, solutions.', '(iii) Creating a word document mydata.doc and saving it in the examples folder.', '(iv) Copying mydata.doc to docs and renaming it myself.doc.', '(b) Explain what will happen if you format your drive C now.']},
+                {id: 'T2', text: '2. Spreadsheet Application: (i) Draw a rough layout of the spreadsheet giving the column names. (ii) Give the formulas to compute Total Marks/Average Mark, Maximum/Minimum Mark. (iii) Write down the procedures for sorting data and creating a Line Chart.', sub: ['(i) Spreadsheet Layout (Columns)', '(ii) Formulas for Total, Average, MAX(), MIN()', '(iii) Procedures for Sorting and Line Chart']},
+                {id: 'T3', text: '3. Word Processing and Mail Merge: (i) Explain features used to create the invitation letter layout. (ii) Explain the feature (Mail Merge) to generate letters automatically, including the procedure and modified layout with field names.', sub: ['(i) Features for Letter Layout', '(ii) Mail Merge Feature and Procedure (with field names)']},
+                {id: 'T4', text: '4. Database System for a School: (a) Explain what a database is. (b) Describe why the school needs a database application. (c) Suggest possible tables and fields. (d) Suggest primary keys and foreign keys of the suggested tables.', sub: ['(a) What is a database?', '(b) Why the school needs a database?', '(c) Suggested tables and fields', '(d) Suggested Primary and Foreign keys']},
+                {id: 'T5', text: '5. Digital Certificates and Security: (i) What is a digital certificate? (ii) Write down two advantages and two disadvantages of using a self-signed digital certificate. (iii) Chamath decides to visit the website despite the warning. Do you agree with him? Justify your answer.', sub: ['(i) What is a digital certificate?', '(ii) Advantages and disadvantages of a self-signed certificate (2 each)', '(iii) Agreement/Disagreement and Justification']},
+                {id: 'T6', text: '6. HTML Code: Write the required HTML code to display the given web page content (Animals, Dog, Cat, Elephant sections).', sub: ['HTML Code & Assumptions']},
+                {id: 'T7', text: '7. Presentation Software (Environmental Pollution): (a) List any three characteristics of an effective presentation. (b) Write the most appropriate slide layout for each slide (1-7). (c) Write down the steps to select a slide layout. (d) Write down the steps to visualize slide 3. (e) Write down the steps to insert images into the slides from 4 to 6. (f) Write down two differences between animation and transition.', sub: ['(a) Three characteristics of an effective presentation', '(b) Most appropriate slide layout for each slide', '(c) Steps to select a slide layout', '(d) Steps to visualize slide 3', '(e) Steps to insert images', '(f) Two differences between animation and transition']}
+            ]
+        },
+        [LANG.SI]: {
+            title: 'සාමාන්‍ය තොරතුරු තාක්ෂණ (GIT) A/L පසුගිය විභාග ප්‍රශ්න පත්‍රය - අන්තර්ක්‍රියාකාරී පරීක්ෂණය',
+            nameLabel: "ශිෂ්‍යයාගේ නම / විභාග අංකය:",
+            paper1Heading: 'සාමාන්‍ය තොරතුරු තාක්ෂණය I (MCQ)',
+            paper1Instructions: 'උපදෙස්: සියලුම ප්‍රශ්නවලට පිළිතුරු සපයන්න. නිවැරදි හෝ වඩාත් සුදුසු විකල්පය තෝරන්න.',
+            paper2Heading: 'සාමාන්‍ය තොරතුරු තාක්ෂණය II (න්‍යාය)',
+            paper2Instructions: 'උපදෙස්: ප්‍රශ්න හතරකට පමණක් පිළිතුරු සපයන්න. ඔබේ සවිස්තරාත්මක පිළිතුරු ටයිප් කිරීමට ලබා දී ඇති ඉඩ භාවිතා කරන්න. සැ.යු.: න්‍යාය පිළිතුරු ගුරුවරයෙකු විසින් සමාලෝචනය කළ යුතුය. **1 වන ප්‍රශ්නයේ පළමු උප-ප්‍රශ්නය උදාහරණයක් ලෙස ඔබ වෙනුවෙන් සම්පූර්ණ කර ඇත.**',
+            submitBtn: 'පිළිතුරු ඉදිරිපත් කර බාගත කරන්න',
+            resetBtn: 'සියලුම පිළිතුරු නැවත සකසන්න',
+            reviewBtn: 'පිළිතුරු යතුර බලන්න',
+            mcqResults: 'ඔබගේ MCQ ලකුණු ඉදිරිපත් කිරීමෙන් පසු මෙහි දිස් වනු ඇත.',
+            mcqCorrect: '✅ නිවැරදියි!',
+            mcqIncorrect: '❌ වැරදියි. නිවැරදි පිළිතුර:',
+            mcqUnanswered: '⚠️ පිළිතුරු නොදී ඇත. නිවැරදි පිළිතුර:',
+            questions: [
+                {id: 'q1', text: '1. පහත සඳහන් උපාංග අතරින් පරිගණකයේ ප්‍රතිදාන උපාංගයක් පමණක් වන්නේ කුමක්ද?', options: ['(1) යතුරු පුවරුව (Keyboard)', '(2) මුද්‍රණ යන්ත්‍රය (Printer)', '(3) මූසිකය (Mouse)', '(4) ස්පර්ශක පුවරුව (Touchpad)']},
+                {id: 'q2', text: '2. පරිගණකය විසින් ස්ථිර නොවන ගබඩා උපාංගයක් ලෙස භාවිතා කරන්නේ පහත සඳහන් කුමන උපාංගයද?', options: ['(1) CRT', '(2) CPU රෙජිස්ටර', '(3) දෘඪ තැටි (Hard disks)', '(4) RAM']},
+                {id: 'q3', text: '3. පහත සඳහන් දේ අතරින් මෘදුකාංගයක් වන්නේ කුමක්ද?', options: ['(1) RAM', '(2) මූසිකය', '(3) මෙහෙයුම් පද්ධතිය (Operating System)', '(4) ජාල පරිපාලක (Network Administrator)']},
+                {id: 'q4', text: '4. පරිගණකයක මධ්‍යම සැකසුම් ඒකකයේ (CPU) ප්‍රධාන කාර්යය කුමක්ද?', options: ['(1) දත්ත ගබඩා කිරීම', '(2) ග්‍රැෆික්ස් පෙන්වීම', '(3) උපදෙස් සැකසීම', '(4) අන්තර්ජාලයට සම්බන්ධ වීම']},
+                {id: 'q5', text: '5. HTML යන කෙටි යෙදුමෙන් අදහස් කරන්නේ කුමක්ද?', options: ['(1) හයිපර් ටෙක්ස්ට් මාර්කප් භාෂාව (Hyper Text Markup Language)', '(2) හෝම් ටූල් මාර්කප් භාෂාව (Home Tool Markup Language)', '(3) හයිපර්ලින්ක්ස් සහ ටෙක්ස්ට් මාර්කප් භාෂාව (Hyperlinks and Text Markup Language)', '(4) හයිපර් ටූල් මාර්කප් භාෂාව (Hyper Tool Markup Language)']},
+                {id: 'q6', text: '6. පරිගණකයක් ඕනෑම පරිගණක ජාලයකට සම්බන්ධ කිරීමට භාවිතා කරන්නේ පහත සඳහන් කුමන උපාංගය/සංරචකයද?', options: ['(1) මුද්‍රණ යන්ත්‍රය', '(2) ස්කෑනරය', '(3) ජාල අතුරුමුහුණත් කාඩ්පත (NIC)', '(4) යතුරු පුවරුව']},
+                {id: 'q7', text: '7. පහත සඳහන් දේ අතරින් ක්‍රමලේඛන භාෂාවක් වන්නේ කුමක්ද?', options: ['(1) Excel', '(2) HTML', '(3) Pascal', '(4) XML']},
+                {id: 'q8', text: '8. මෙහෙයුම් පද්ධතියක ප්‍රධාන කාර්යය කුමක්ද?', options: ['(1) ක්‍රමලේඛ සම්පාදනය කිරීම', '(2) පරිගණක දෘඪාංග හා මෘදුකාංග කළමනාකරණය කිරීම', '(3) වෙබ් බ්‍රවුසර් ක්‍රියාත්මක කිරීම', '(4) ජාල කළමනාකරණය කිරීම']},
+                {id: 'q9', text: '9. පහත සඳහන් දේ අතරින් මෙහෙයුම් පද්ධතියක් වන්නේ කුමක්ද?', options: ['(1) Excel', '(2) MS Word', '(3) Linux', '(4) Google Chrome']},
+                {id: 'q10', text: '10. පහත සඳහන් දේ අතරින් වෙබ් බ්‍රවුසරයක් වන්නේ කුමක්ද?', options: ['(1) Excel', '(2) Python', '(3) Linux', '(4) Google Chrome']},
+                {id: 'q11', text: '11. ශ්‍රව්‍ය ගොනු ගබඩා කිරීමට භාවිතා කරන ගොනු දිගුව කුමක්ද?', options: ['(1) txt', '(2) mp3', '(3) docx', '(4) pdf']},
+                {id: 'q12', text: '12. වෙබ් පිටු තැනීම සඳහා මූලික වන භාෂාව කුමක්ද?', options: ['(1) C++', '(2) Java', '(3) HTML', '(4) Python']},
+                {id: 'q13', text: '13. වෙබ් අඩවි වෙත ප්‍රවේශ වීමට පරිශීලකයෙකු භාවිතා කරන මෘදුකාංගය කුමක්ද?', options: ['(1) වදන් සැකසුම්', '(2) පැතුරුම්පත', '(3) වෙබ් බ්‍රවුසරය', '(4) DBMS']},
+                {id: 'q14', text: '14. දත්ත සංකේතනය කිරීමේ (Encryption) ප්‍රධාන අරමුණ කුමක්ද?', options: ['(1) දත්ත සම්පීඩනය කිරීම', '(2) දත්ත හුවමාරු වේගවත් කිරීම', '(3) දත්ත ආරක්ෂා කිරීම', '(4) දත්ත උපස්ථ කිරීම']},
+                {id: 'q15', text: '15. IP ලිපිනයක ප්‍රාථමික අරමුණ කුමක්ද?', options: ['(1) පරිගණක ජාලයක උපාංගයක් හඳුනා ගැනීම', '(2) අන්තර්ජාලයට සම්බන්ධ වීම', '(3) විද්‍යුත් තැපෑලක් යැවීම', '(4) යෙදුම් ක්‍රියාත්මක කිරීම']},
+                {id: 'q16', text: '16. පැතුරුම්පත්වල සූත්‍රයක් ආරම්භ කිරීමට භාවිතා කළ හැකි පිළිගත හැකි සංකේත මොනවාද?', options: ['(1) # හෝ @', '(2) = හෝ +', '(3) $ හෝ &', '(4) % හෝ *']},
+                {id: 'q17', text: '17. පැතුරුම්පතක සෛල පරාසයක උපරිම අගය සොයා ගන්නා ශ්‍රිතය කුමක්ද?', options: ['(1) SUM()', '(2) AVERAGE()', '(3) MAX()', '(4) MIN()']},
+                {id: 'q18', text: '18. කාලයත් සමඟ ප්‍රවණතා (trends) පෙන්වීමට භාවිතා කළ හැකි හොඳම ප්‍රස්ථාර වර්ගය කුමක්ද?', options: ['(1) Pie chart', '(2) Line chart', '(3) Bar chart', '(4) Scatter plot chart']},
+                {id: 'q19', text: '19. පහත සඳහන් දේ අතරින් පැතුරුම්පතක වලංගු සෛල පරාස විමසුමක් (cell range reference) වන්නේ කුමක්ද?', options: ['(1) A1-A10', '(2) A1:A10', '(3) Al;A10', '(4) A1 A10']},
+                {id: 'q20', text: "20. ජාල සම්බන්ධයෙන් ගත් කල 'කලාප පළල' (bandwidth) යන්නෙන් අදහස් කරන්නේ කුමක්ද?", options: ['(1) නියමිත කාල ඒකකයකදී ජාලයක් හරහා සම්ප්‍රේෂණය කළ හැකි දත්ත ප්‍රමාණය.', '(2) ජාල කේබලයක භෞතික ප්‍රමාණය', '(3) රැහැන් රහිත සංඥාවක සංඛ්‍යාතය.', '(4) ජාලයකට සම්බන්ධ උපාංග ගණන']},
+                {id: 'q21', text: '21. ෆයර්වෝලයක (firewall) ප්‍රධාන කාර්යය කුමක්ද?', options: ['(1) වෙබ් සේවාදායක කළමනාකරණය කිරීම', '(2) ජාලයකට ඇතුළු වන සහ පිටතට යන ගමනාගමනය නිරීක්ෂණය කිරීම', '(3) දත්ත සම්පීඩනය කිරීම', '(4) විද්‍යුත් තැපැල් ආරක්ෂාව වැඩි දියුණු කිරීම']},
+                {id: 'q22', text: '22. දත්ත සමුදායක වගුවක ප්‍රාථමික යතුරක් (primary key) යනු කුමක්ද?', options: ['(1) වාර්තාවක් සඳහා අනන්‍ය හඳුනාගැනීමක්', '(2) වාර්තාවක ක්ෂේත්‍රයක් හඳුනා ගැනීමට ඇති අනන්‍ය ලේබලයක්', '(3) දත්ත සංකේතනය කිරීමට භාවිතා කරන යතුරක්', '(4) දත්ත ලබා ගැනීමේ විධානයක්']},
+                {id: 'q23', text: "23. 'http://www.example.com/path' යන URL එකෙහි ඩොමේන් නාමය (domain name) කුමක්ද?", options: ['(1) http', '(2) www', '(3) example', '(4) www.example.com']},
+                {id: 'q24', text: "24. වීඩියෝ සංස්කරණයේදී 'රෙන්ඩරින්' (rendering) යන පදයෙහි තේරුම කුමක්ද?", options: ['(1) වීඩියෝවකට උපසිරැසි එකතු කිරීම', '(2) වීඩියෝවක ශබ්දය සකස් කිරීම', '(3) වීඩියෝ ව්‍යාපෘතියක් අවසන් ආකෘතියකට අපනයනය කිරීමේ ක්‍රියාවලිය', '(4) වීඩියෝ පටයක් කුඩා කොටස් වලට කැපීම']},
+                {id: 'q25', text: '25. ප්‍රකාශවල විස්තර කර ඇති දත්ත සහ තොරතුරු නිවැරදිව වර්ගීකරණය කිරීම පෙන්වන්නේ පහත සඳහන් කුමන විකල්පයද?', options: ['(1) A සහ D යනු දත්ත; B සහ C යනු තොරතුරු.', '(2) A සහ B යනු දත්ත; C සහ D යනු තොරතුරු.', '(3) B සහ C යනු දත්ත; A සහ D යනු තොරතුරු.', '(4) C සහ D යනු දත්ත; A සහ B යනු තොරතුරු.']},
+                {id: 'q26', text: "26. වීඩියෝ සංස්කරණයේදී 'කට්' (cut) යන පදයෙහි තේරුම කුමක්ද?", options: ['(1) ශ්‍රව්‍ය පථයක ශබ්දය වැඩි කිරීම', '(2) වීඩියෝ පටයකට පෙරහනක් (filter) එක් කිරීම', '(3) වීඩියෝ පටයක් කොටස් දෙකකට බෙදීම', '(4) වීඩියෝවක දීප්තිය සකස් කිරීම']},
+                {id: 'q27', text: "27. Microsoft PowerPoint හි, 'ස්ලයිඩ් මාස්ටර්' (slide master) යනු කුමක්ද?", options: ['(1) සජීවීකරණ නිර්මාණය කිරීමට භාවිතා කරන විශේෂාංගයක්', '(2) ස්ලයිඩ සඳහා සමස්ත සැලසුම සහ සැකැස්ම සැකසීමට භාවිතා කරන මෙවලමක්', '(3) ක්ලිපාට් පුස්තකාලයක්', '(4) සංක්‍රාන්ති (transitions) කළමනාරණය කිරීමට භාවිතා කරන විශේෂාංගයක්']},
+                {id: 'q28', text: "28. ඉදිරිපත් කිරීමේ මෘදුකාංගයක 'කථික සටහන්' (Speaker Notes) යනු කුමක්ද?", options: ['(1) ප්‍රේක්ෂකයන්ට පෙනෙන සටහන්', '(2) ස්ලයිඩ් මාතෘකා නිර්මාණය කිරීමේ මෙවලමක්', '(3) ඉදිරිපත් කිරීමේදී ඉදිරිපත් කරන්නාට පමණක් පෙනෙන සටහන්', '(4) ශ්‍රව්‍ය ක්ලිප් එක් කිරීමේ විශේෂාංගයක්']},
+                {id: 'q29', text: "29. ඉදිරිපත් කිරීමේ මෘදුකාංගයක 'ස්ලයිඩ් දර්ශනය' (Slide Show) හි අරමුණ කුමක්ද?", options: ['(1) ස්ලයිඩ් අන්තර්ගතය සංස්කරණය කිරීම', '(2) සැබෑ ඉදිරිපත් කිරීමේදී දිස්වන ආකාරයට ස්ලයිඩ බැලීම සහ ඉදිරිපත් කිරීම', '(3) ස්ලයිඩ් මුද්‍රණය කිරීම', '(4) නිර්මාණ තේමා යෙදීම']},
+                {id: 'q30', text: "30. X, Y සහ Z යනු X.Y + (NOT) Z ප්‍රකාශනයේ ඇති බූලීය විචල්‍යයන් තුනකි. ඉහත අගයන් පැවරීම් වලින් ප්‍රකාශනයට 0 අගය ලබා දෙන්නේ කුමක්ද?", options: ['(1) A පමණි (X=0, Y=0, Z=1)', '(2) B පමණි (X=1, Y=1, Z=1)', '(3) C පමණි (X=0, Y=1, Z=0)', '(4) D පමණි (X=1, Y=0, Z=0)']},
+                {id: 'q31', text: "31. විශේෂිත වාහනයක සම්පූර්ණ රැඳී සිටීමේ කාලය (තත්පර වලින්) ද්විමය අංක 1011 මගින් නිරූපණය කෙරේ. මෙම වාහනය රථවාහන ලයිට් හතරේ ගත කළ මුළු කාලය කොපමණද?", options: ['(1) තත්පර 7', '(2) තත්පර 11', '(3) තත්පර 13', '(4) තත්පර 15']},
+                {id: 'q32', text: "32. ASCII සහ Unicode කේතන පද්ධති පිළිබඳව පහත සඳහන් ප්‍රකාශ අතරින් නිවැරදි වන්නේ කුමක්ද?", options: ['(1) ASCII යනු Unicode හි උප කුලකයකි.', '(2) Unicode සහ ASCII සම්පූර්ණයෙන්ම වෙනස් කේතන පද්ධති වේ.', '(3) ASCII, Unicode වලට වඩා අක්ෂර වලට සහය දක්වයි.', '(4) Unicode uses the same number of bits as ASCII to represent a character.']},
+                {id: 'q33', text: '33. පහත සඳහන් දේ අතරින් ෂඩ් දශම සංඛ්‍යාවක් පමණක් වන්නේ කුමක්ද?', options: ['(1) 1010', '(2) 256', '(3) 1A3F', '(4) 10012']},
+                {id: 'q34', text: '34. තනි බයිටයක් මඟින් නිරූපණය කළ හැකි විශාලතම දශම අගය කුමක්ද?', options: ['(1) 128', '(2) 255', '(3) 256', '(4) 512']},
+                {id: 'q35', text: "35. When the formula =6/2-2*4/2 is entered into a cell in a spreadsheet which of the following value is displayed in that cell?", options: ['(1) 1', '(2) -1', '(3) 2', '(4) -2']},
+                {id: 'q36', text: '36. A teacher wanted to create a question paper that no one could modify without using special software. Which of the following file formats should be used to store the question paper?', options: ['(1) DOC', '(2) HTML', '(3) PDF', '(4) ODT']},
+                {id: 'q37', text: '37. Consider the following statements about HTML documents. Which of the above statements are true?', options: ['(1) A and B only', '(2) A and D only', '(3) B and C only', '(4) C and D only']},
+                {id: 'q38', text: '38. The English alphabet character "E" is represented by the decimal number 69 in ASCII. Which of the following binary value represents the English character "A" in the ASCII code?', options: ['(1) 1000000', '(2) 1000001', '(3) 1000011', '(4) 1000111']},
+                {id: 'q39', text: '39. Which of the above features should be considered when buying a typical desktop computer?', options: ['(1) A and B only', '(2) B and C only', '(3) C and D only', '(4) A, B and C only']},
+                {id: 'q40', text: '40. What is the primary purpose of using the Bcc (Blind carbon copy) field in an email?', options: ['(1) To send a copy of the email to yourself', '(2) To send a copy of the email without revealing the recipients\' address to others', '(3) To send a copy of the email with high priority', '(4) To save a draft of the email']}
+            ],
+            theory: [
+                {id: 'T1', text: '1. පහත කාර්යයන් ඉටු කිරීමට අවශ්‍ය අත්‍යවශ්‍ය පරිගණක මෙහෙයුම් ලියා දක්වන්න.', sub: ['(i) C ධාවකයේ GIT නමින් ෆෝල්ඩරයක් නිර්මාණය කිරීම.', '(ii) GIT ෆෝල්ඩරය තුළ examples, docs, solutions නමින් උප ෆෝල්ඩර 3ක් නිර්මාණය කිරීම.', '(iii) වදන් සැකසුම් මෘදුකාංගයක් භාවිතයෙන් ඔබේ විභාග අංකය සහ නම අඩංගු වර්ඩ් ලේඛනයක් නිර්මාණය කර එය examples ෆෝල්ඩරයේ mydata.doc ගොනු නාමයෙන් සුරැකීම.', '(iv) ඔබ විසින් නිර්මාණය කරන ලද mydata.doc වර්ඩ් ලේඛනය docs ෆෝල්ඩරයට පිටපත් කර එය myself.doc ලෙස නැවත නම් කිරීම.', '(b) දැන් ඔබ C ධාවකය ආකෘතිකරණය (Format) කළහොත් කුමක් සිදුවේදැයි පැහැදිලි කරන්න.']},
+                {id: 'T2', text: '2. පැතුරුම්පත් යෙදුම: (i) තීරු නම් සහිත පැතුරුම්පතක රළු සැකැස්මක් අඳින්න. (ii) මුළු ලකුණු/සාමාන්‍යය, උපරිම/අවම ලකුණු ගණනය කිරීම සඳහා සූත්‍ර දෙන්න. (iii) දත්ත වර්ග කිරීම සහ රේඛා සටහනක් නිර්මාණය කිරීම සඳහා අනුගමනය කළ යුතු පියවර ලියන්න.', sub: ['(i) පැතුරුම්පත් සැකැස්ම (තීරු)', '(ii) මුළු, සාමාන්‍යය, MAX(), MIN() සඳහා සූත්‍ර', '(iii) වර්ග කිරීම සහ රේඛා සටහනක් සඳහා පියවර']},
+                {id: 'T3', text: '3. වදන් සැකසුම් සහ ලිපි ඒකාබද්ධ කිරීම (Mail Merge): (i) ආරාධනා පත්‍රයේ සැකැස්ම නිර්මාණය කිරීමට භාවිතා කළ යුතු විශේෂාංග පැහැදිලි කරන්න. (ii) ලිපි ස්වයංක්‍රීයව ජනනය කිරීමට භාවිතා කළ හැකි විශේෂාංගය (ලිපි ඒකාබද්ධ කිරීම / Mail Merge) පැහැදිලි කරන්න, ක්‍රියා පටිපාටිය සහ ක්ෂේත්‍ර නාම සහිතව වෙනස් කළ සැකැස්ම ඇතුළත් කරන්න.', sub: ['(i) ලිපි සැකැස්ම සඳහා විශේෂාංග', '(ii) Mail Merge විශේෂාංගය සහ ක්‍රියා පටිපාටිය (ක්ෂේත්‍ර නාම සමඟ)']},
+                {id: 'T4', text: '4. පාසලක් සඳහා දත්ත සමුදා පද්ධතිය: (a) දත්ත සමුදායක් යනු කුමක්දැයි පැහැදිලි කරන්න. (b) පාසලකට දත්ත සමුදා යෙදුමක් අවශ්‍ය වන්නේ ඇයිද යන්න විස්තර කරන්න. (c) යෝජිත වගු සහ ක්ෂේත්‍ර ඉදිරිපත් කරන්න. (d) යෝජිත වගු වල ප්‍රාථමික යතුරු සහ විදේශීය යතුරු යෝජනා කරන්න.', sub: ['(a) දත්ත සමුදායක් යනු කුමක්ද?', '(b) පාසලට දත්ත සමුදායක් අවශ්‍ය වන්නේ ඇයි?', '(c) යෝජිත වගු සහ ක්ෂේත්‍ර', '(d) යෝජිත ප්‍රාථමික සහ විදේශීය යතුරු']},
+                {id: 'T5', text: '5. ඩිජිටල් සහතික සහ ආරක්ෂාව: (i) ඩිජිටල් සහතිකයක් යනු කුමක්ද? (ii) ස්වයං-අත්සන් කළ ඩිජිටල් සහතිකයක් භාවිතා කිරීමේ වාසි දෙකක් සහ අවාසි දෙකක් ලියා දක්වන්න. (iii) අනතුරු ඇඟවීම නොතකා චමත් වෙබ් අඩවියට පිවිසීමට තීරණය කරයි. ඔබ ඔහුට එකඟද? ඔබේ පිළිතුර සාධාරණීකරණය කරන්න.', sub: ['(i) ඩිජිටල් සහතිකයක් යනු කුමක්ද?', '(ii) ස්වයං-අත්සන් කළ සහතිකයක වාසි සහ අවාසි (දෙක බැගින්) ලියන්න.', '(iii) එකඟතාව/නොඑකඟතාව සහ සාධාරණීකරණය']},
+                {id: 'T6', text: '6. HTML කේතය: ලබා දී ඇති වෙබ් පිටු අන්තර්ගතය (සතුන්, බල්ලා, පූසා, අලියා කොටස්) ප්‍රදර්ශනය කිරීමට අවශ්‍ය HTML කේතය ලියන්න.', sub: ['HTML කේතය සහ උපකල්පන']},
+                {id: 'T7', text: '7. ඉදිරිපත් කිරීමේ මෘදුකාංගය (පරිසර දූෂණය): (a) ඵලදායී ඉදිරිපත් කිරීමක ලක්ෂණ තුනක් ලැයිස්තුගත කරන්න. (b) එක් එක් ස්ලයිඩය සඳහා (1-7) වඩාත් සුදුසු ස්ලයිඩ් සැකැස්ම ලියන්න. (c) ස්ලයිඩ් සැකැස්මක් තේරීමට ඔබ අනුගමනය කළ යුතු පියවර ලියන්න. (d) 3 වන ස්ලයිඩය දෘශ්‍යමාන කිරීමේ පියවර ලියන්න. (e) 4 සිට 6 දක්වා ස්ලයිඩවලට පින්තූර ඇතුළු කිරීමේ පියවර ලියන්න. (f) සජීවීකරණය (animation) සහ සංක්‍රාන්ති (transition) අතර වෙනස්කම් දෙකක් ලියන්න.', sub: ['(a) ඵලදායී ඉදිරිපත් කිරීමක ලක්ෂණ තුනක්', '(b) එක් එක් ස්ලයිඩය සඳහා සුදුසු සැකැස්ම', '(c) ස්ලයිඩ් සැකැස්මක් තේරීමේ පියවර', '(d) 3 වන ස්ලයිඩය දෘශ්‍යමාන කිරීමේ පියවර', '(e) පින්තූර ඇතුළු කිරීමේ පියවර', '(f) Animation සහ Transition අතර වෙනස්කම් දෙකක්']}
+            ]
+        }
+    };
+
+    // --- Core Functions ---
+
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        document.getElementById('date-time-display').textContent = now.toLocaleDateString(currentLang, options);
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === LANG.EN ? LANG.SI : LANG.EN;
+        renderContent();
+    }
+
+    function toggleAnswerKey() {
+        const keyElements = document.querySelectorAll('.correct-answer-key');
+        const button = document.getElementById('review-key-btn');
+        let isVisible = keyElements[0].style.display === 'block';
+
+        keyElements.forEach(el => {
+            el.style.display = isVisible ? 'none' : 'block';
+        });
+
+        button.textContent = isVisible 
+            ? content[currentLang].reviewBtn 
+            : (currentLang === LANG.EN ? 'Hide Answer Key' : 'පිළිතුරු යතුර සඟවන්න');
+        
+        // Hide feedback if key is hidden
+        if (isVisible) {
+            document.querySelectorAll('.answer-feedback').forEach(el => { el.style.display = 'none'; });
+        }
+    }
+
+    function getCorrectOptionText(q) {
+        const correctAnswerKey = correctAnswers[q.id];
+        const correctOptionIndex = correctAnswerKey.charCodeAt(0) - 97;
+        
+        // Check if the current language has a translated version
+        const options = content[currentLang].questions.find(item => item.id === q.id).options;
+        return options[correctOptionIndex];
+    }
+
+    function renderMCQs() {
+        const langData = content[currentLang];
+        const container = document.getElementById('mcq-container');
+        container.innerHTML = langData.questions.map(q => {
+            const correctAnswerKey = correctAnswers[q.id];
+            const correctOptionText = getCorrectOptionText(q);
+            
+            const optionsHtml = q.options.map((opt, index) => {
+                const value = String.fromCharCode(97 + index); // a, b, c, d
+                return `<label><input type="radio" name="${q.id}" value="${value}"> ${opt}</label>`;
+            }).join('');
+
+            // Both feedback elements are initially empty and hidden via CSS
+            return `
+                <div class="question" id="${q.id}">
+                    <h3>${q.text}</h3>
+                    <div class="options">${optionsHtml}</div>
+                    <p class="answer-feedback"></p>
+                    <p class="correct-answer-key">${currentLang === LANG.EN ? 'Correct Key: ' : 'නිවැරදි යතුර: '} (${correctAnswerKey.toUpperCase()}) - ${correctOptionText}</p>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderTheory() {
+        const langData = content[currentLang];
+        const container = document.getElementById('theory-container');
+        const langT1Example = t1Example[currentLang];
+
+        container.innerHTML = langData.theory.map(t => {
+            const isExampleQuestion = t.id === 'T1';
+            const exampleClass = isExampleQuestion ? 'theory-example' : '';
+
+            const subQuestionsHtml = t.sub.map((subText, index) => {
+                const subId = t.id + '_' + (index + 1);
+                const isT1_1 = isExampleQuestion && index === 0;
+                
+                let exampleAnswer = '';
+                let isReadOnly = false;
+                
+                if (isT1_1) {
+                    // Pre-fill only T1_1 with the exact requested example and make it read-only
+                    exampleAnswer = langT1Example[0];
+                    isReadOnly = true; 
+                }
+                
+                const placeholder = currentLang === LANG.EN ? `Type your answer for: ${subText}` : `${subText} සඳහා පිළිතුර ටයිප් කරන්න`;
+
+                return `
+                    <div id="${subId}">
+                        <h3>${subText}</h3>
+                        <textarea name="${subId}" placeholder="${placeholder}" ${isReadOnly ? 'readonly' : ''}>${exampleAnswer}</textarea>
+                    </div>
+                `;
+            }).join('');
+            
+            // Add a note for the example question T1
+            const exampleNote = isExampleQuestion ? `<p style="color: #00897b; font-weight: bold; margin-top: -10px;">(${currentLang === LANG.EN ? 'The first sub-question answer is provided as a detailed example and is read-only.' : 'පළමු උප-ප්‍රශ්නයෙහි පිළිතුර උදාහරණයක් ලෙස සපයා ඇත. මෙය සංස්කරණය කළ නොහැක.'})</p>` : '';
+
+            return `
+                <div class="theory-question ${exampleClass}" id="${t.id}">
+                    <h2>${t.text}</h2>
+                    ${isExampleQuestion ? exampleNote : ''}
+                    ${subQuestionsHtml}
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderContent() {
+        const langData = content[currentLang];
+
+        // Update UI elements
+        document.getElementById('main-title').textContent = langData.title;
+        document.getElementById('name-label').textContent = langData.nameLabel;
+        document.getElementById('paper1-heading').textContent = langData.paper1Heading;
+        document.getElementById('paper1-instructions').textContent = langData.paper1Instructions;
+        document.getElementById('paper2-heading').textContent = langData.paper2Heading;
+        document.getElementById('paper2-instructions').innerHTML = langData.paper2Instructions; // Use innerHTML to render bold tag
+        document.getElementById('submit-btn').textContent = langData.submitBtn;
+        document.getElementById('reset-btn').textContent = langData.resetBtn;
+        document.getElementById('review-key-btn').textContent = langData.reviewBtn;
+        document.getElementById('results').textContent = langData.mcqResults;
+        
+        // Update language toggle button text
+        document.getElementById('language-toggle').textContent = currentLang === LANG.EN ? 'සිංහලට මාරු කරන්න' : 'Switch to English';
+
+        // Re-render questions
+        renderMCQs();
+        renderTheory();
+        updateDateTime(); 
+    }
+
+    function resetForm() {
+        if (confirm(currentLang === LANG.EN ? 'Are you sure you want to clear all your answers?' : 'ඔබගේ සියලු පිළිතුරු මකා දැමීමට අවශ්‍ය බව සහතිකද?')) {
+            document.getElementById('git-exam-form').reset();
+            
+            // Reset colors and feedback for all MCQs
+            document.querySelectorAll('.answer-feedback').forEach(el => { el.textContent = ''; el.style.display = 'none'; });
+            document.querySelectorAll('.question').forEach(el => { el.style.backgroundColor = '#f0fff0'; });
+            
+            // Re-render to restore Q1 background color and T1 Theory examples
+            renderMCQs();
+            renderTheory();
+            document.getElementById('q1').style.backgroundColor = '#e6ffe6'; // Restore Q1 specific background
+
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('review-key-btn').style.display = 'none';
+            document.querySelectorAll('.correct-answer-key').forEach(el => { el.style.display = 'none'; });
+            document.getElementById('review-key-btn').textContent = content[currentLang].reviewBtn;
+        }
+    }
+
+    function submitAndDownload() {
+        let score = 0;
+        const form = document.getElementById('git-exam-form');
+        const langData = content[currentLang];
+        const studentName = document.getElementById('student-name').value.trim() || (currentLang === LANG.EN ? 'Unnamed Student' : 'නාම රහිත ශිෂ්‍යයා');
+        
+        if (!document.getElementById('student-name').value.trim()) {
+            alert(currentLang === LANG.EN ? "Please enter your Name or Index Number before submitting." : "ඉදිරිපත් කිරීමට පෙර කරුණාකර ඔබගේ නම හෝ විභාග අංකය ඇතුළත් කරන්න.");
+            document.getElementById('student-name').focus();
+            return;
+        }
+
+        const dateTime = new Date().toLocaleString(currentLang, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        
+        let fileContent = `--- GIT A/L Past Paper Answers ---\n`;
+        fileContent += (currentLang === LANG.EN ? `Name/Index: ${studentName}\n` : `නම/විභාග අංකය: ${studentName}\n`);
+        fileContent += (currentLang === LANG.EN ? `Submission Date: ${dateTime}\n` : `ඉදිරිපත් කළ දිනය: ${dateTime}\n`);
+        fileContent += `------------------------------------\n\n`;
+
+        // 1. Process MCQs
+        const totalQuestions = Object.keys(correctAnswers).length;
+        fileContent += `====== ${langData.paper1Heading} (${totalQuestions} Questions) ======\n`;
+
+        langData.questions.forEach(q => {
+            const qNum = q.id;
+            const questionElement = document.getElementById(qNum);
+            const feedbackElement = questionElement.querySelector('.answer-feedback');
+            const selectedInput = form.elements[qNum] ? Array.from(form.elements[qNum]).find(i => i.checked) : null;
+            const selectedValue = selectedInput ? selectedInput.value : '';
+            const correctAnswerKey = correctAnswers[qNum];
+            let isCorrect = selectedValue === correctAnswerKey;
+            
+            const correctOptionText = getCorrectOptionText(q);
+
+            // Update score and feedback
+            if (isCorrect) {
+                score++;
+                feedbackElement.textContent = langData.mcqCorrect;
+                feedbackElement.style.color = '#27ae60'; 
+                questionElement.style.backgroundColor = '#e6ffe6'; /* Light Green */
+            } else {
+                if (selectedValue) {
+                    feedbackElement.textContent = `${langData.mcqIncorrect} ${correctOptionText}`;
+                } else {
+                    feedbackElement.textContent = `${langData.mcqUnanswered} ${correctOptionText}`;
+                }
+                feedbackElement.style.color = '#c0392b'; 
+                questionElement.style.backgroundColor = '#fdedec'; /* Light Red/Pink */
+            }
+            feedbackElement.style.display = 'block'; // Display feedback after submission
+
+            // Add to file content
+            fileContent += `${q.text}\n`;
+            fileContent += (currentLang === LANG.EN ? `\tYour Answer: ${selectedValue ? selectedInput.closest('label').textContent : 'N/A'}\n` : `\tඔබගේ පිළිතුර: ${selectedValue ? selectedInput.closest('label').textContent : 'N/A'}\n`);
+            fileContent += (currentLang === LANG.EN ? `\tCorrect Answer: ${correctOptionText}\n` : `\tනිවැරදි පිළිතුර: ${correctOptionText}\n`);
+            fileContent += (currentLang === LANG.EN ? `\tResult: ${isCorrect ? 'Correct' : 'Incorrect'}\n\n` : `\tප්‍රතිඵලය: ${isCorrect ? 'නිවැරදියි' : 'වැරදියි'}\n\n`);
+        });
+        
+        // Ensure Q1 specific background color is correctly set
+        document.getElementById('q1').style.backgroundColor = '#e6ffe6';
+
+
+        // Display MCQ results summary
+        const resultsDiv = document.getElementById('results');
+        const scoreText = currentLang === LANG.EN ? `Your MCQ Score: ${score} out of ${totalQuestions}` : `ඔබගේ MCQ ලකුණු: ${score} න් ${totalQuestions} යි`;
+        resultsDiv.innerHTML = `<h2>${scoreText}</h2><p>${currentLang === LANG.EN ? 'Scroll up to review the answers or click the "Review Answer Key" button below.' : 'පිළිතුරු සමාලෝචනය කිරීමට ඉහළට යන්න හෝ "පිළිතුරු යතුර බලන්න" බොත්තම ක්ලික් කරන්න.'}</p>`;
+        resultsDiv.style.display = 'block';
+        document.getElementById('review-key-btn').style.display = 'inline-block';
+        document.getElementById('review-key-btn').textContent = langData.reviewBtn; // Reset button text
+
+
+        // 2. Process Theory Answers
+        fileContent += `\n====== ${langData.paper2Heading} Answers (Answered questions are included) ======\n`;
+        fileContent += `(Note: T1 (i) is a read-only example. All other questions are recorded as typed.)\n`;
+        
+        langData.theory.forEach(t => {
+            fileContent += `\n--- Question ${t.id} ---\n`;
+            fileContent += (currentLang === LANG.EN ? `Question Instruction: ${t.text}\n` : `ප්‍රශ්න උපදෙස්: ${t.text}\n`);
+            
+            t.sub.forEach((subText, index) => {
+                const subId = t.id + '_' + (index + 1);
+                const textarea = document.querySelector(`#${subId} textarea`);
+                const answer = textarea ? textarea.value.trim() : '';
+
+                fileContent += `\n${subText}:\n`;
+                fileContent += `\tAnswer:\n`;
+                fileContent += (answer ? answer.split('\n').map(line => `\t> ${line}`).join('\n') : '\t> (No Answer Provided)');
+                fileContent += '\n';
+            });
+        });
+
+        // 3. Trigger Download
+        const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+        const cleanName = studentName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+        const fileName = `GIT_Answers_${cleanName}_${new Date().toISOString().slice(0, 10).replace(/-/g, '')}.txt`;
+        
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    // --- Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+        renderContent();
+        setInterval(updateDateTime, 1000); 
+    });
+
+</script>
+
+</body>
+</html>
